@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Self-Sanitizing Door Handle</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#07111f;
+color:white;
+overflow-x:hidden;
+line-height:1.6;
+}
+
+/* HEADER */
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:16px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(7,17,31,0.92);
+backdrop-filter:blur(14px);
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+font-size:1rem;
+font-weight:700;
+color:#4ea5ff;
+}
+
+nav{
+display:flex;
+gap:10px;
+overflow-x:auto;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+padding:10px 14px;
+border-radius:10px;
+font-size:0.85rem;
+transition:0.3s;
+white-space:nowrap;
+}
+
+nav a:hover{
+background:#4ea5ff;
+}
+
+/* PAGES */
+
+.page{
+display:none;
+min-height:100vh;
+padding:130px 6% 70px;
+max-width:1400px;
+margin:auto;
+}
+
+.page.active{
+display:block;
+animation:fade 0.4s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* LAYOUT */
+
+.hero,
+.two-column{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+/* IMAGES */
+
+.hero img{
+width:100%;
+max-width:420px;
+display:block;
+margin:auto;
+border-radius:24px;
+object-fit:contain;
+box-shadow:0 0 30px rgba(78,165,255,0.25);
+}
+
+.image-box img{
+width:100%;
+max-width:520px;
+display:block;
+margin:auto;
+border-radius:24px;
+object-fit:cover;
+box-shadow:0 0 30px rgba(78,165,255,0.25);
+}
+
+/* TEXT */
+
+h1{
+font-size:clamp(2.5rem,6vw,4.5rem);
+line-height:1.1;
+margin-bottom:20px;
+}
+
+h1 span,
+h2{
+color:#4ea5ff;
+}
+
+h2{
+font-size:clamp(2rem,4vw,3rem);
+margin-bottom:20px;
+text-align:center;
+}
+
+p{
+color:#d6dce5;
+font-size:1rem;
+line-height:1.8;
+}
+
+/* BUTTON */
+
+.btn{
+display:inline-block;
+padding:14px 26px;
+background:#4ea5ff;
+color:white;
+text-decoration:none;
+border-radius:14px;
+font-weight:600;
+margin-top:25px;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:translateY(-4px);
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:24px;
+margin-top:40px;
+}
+
+/* CARD */
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+padding:28px;
+border-radius:22px;
+backdrop-filter:blur(12px);
+transition:0.3s ease;
+height:100%;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 20px rgba(78,165,255,0.18);
+}
+
+.card h3{
+color:#4ea5ff;
+margin-bottom:12px;
+font-size:1.15rem;
+}
+
+/* TIMELINE */
+
+.timeline{
+display:flex;
+flex-direction:column;
+gap:24px;
+margin-top:50px;
+}
+
+.timeline .card{
+border-left:4px solid #4ea5ff;
+}
+
+/* FOOTER */
+
+footer{
+background:#050b14;
+padding:30px 20px;
+text-align:center;
+color:#94a3b8;
+margin-top:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+header{
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+.hero,
+.two-column{
+grid-template-columns:1fr;
+gap:40px;
+}
+
+.hero{
+text-align:center;
+}
+
+.page{
+padding-top:180px;
+}
+
+h1{
+font-size:2.5rem;
+}
+
+nav{
+width:100%;
+}
+
+}
+
+@media(max-width:600px){
+
+.page{
+padding:170px 5% 60px;
+}
+
+h1{
+font-size:2rem;
+}
+
+h2{
+font-size:1.8rem;
+}
+
+p{
+font-size:0.95rem;
+}
+
+.card{
+padding:22px;
+}
+
+.hero img,
+.image-box img{
+border-radius:18px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+SELF-SANITIZING DOOR HANDLE
+</div>
+
+<nav>
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('about')">About</a>
+<a href="#" onclick="showPage('required')">Why Required</a>
+<a href="#" onclick="showPage('working')">How It Works</a>
+<a href="#" onclick="showPage('journey')">Journey</a>
+<a href="#" onclick="showPage('materials')">Materials</a>
+<a href="#" onclick="showPage('future')">Future</a>
+<a href="#" onclick="showPage('team')">Team</a>
+</nav>
+
+</header>
+
+<!-- HOME -->
+
+<div id="home" class="page active">
+
+<div class="hero">
+
+<div>
+
+<h1>
+REVOLUTIONIZING
+<span>PUBLIC HYGIENE</span>
+</h1>
+
+<p>
+A smart self-sanitizing door handle designed using design thinking principles to improve hygiene in public spaces through automatic sanitization.
+</p>
+
+<a class="btn" href="#" onclick="showPage('about')">
+Explore Project
+</a>
+
+</div>
+
+<div>
+<img src="homeimg.png" alt="Home Image">
+</div>
+
+</div>
+
+<!-- HOME DESCRIPTION -->
+
+<div class="grid" style="margin-top:60px;">
+
+<div class="card">
+<h3>Automatic Sanitization</h3>
+<p>
+The system automatically dispenses sanitizer while operating the door handle, improving hygiene without requiring additional effort from users.
+</p>
+</div>
+
+<div class="card">
+<h3>Smart Mechanical Design</h3>
+<p>
+A spring-based mechanical linkage activates sanitizer flow during normal door operation without using electricity or complex electronics.
+</p>
+</div>
+
+<div class="card">
+<h3>Public Hygiene Solution</h3>
+<p>
+Designed for hospitals, schools, offices, railway stations, malls, and other public environments with high human contact.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- ABOUT -->
+
+<div id="about" class="page">
+
+<h2>About The Product</h2>
+
+<div class="two-column">
+
+<div class="image-box">
+<img src="aboutimg.png" alt="About Product">
+</div>
+
+<div>
+
+<p>
+The Self-Sanitizing Door Handle is an innovative hygiene-focused mechanical system that automatically dispenses sanitizer while operating the door handle. The system integrates sanitization directly into normal human behavior without requiring additional effort from users.
+</p>
+
+<div class="grid">
+
+<div class="card">
+<h3>No Electricity</h3>
+<p>
+Mechanical operation without external power.
+</p>
+</div>
+
+<div class="card">
+<h3>User Friendly</h3>
+<p>
+Automatic sanitization during normal usage.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- WHY REQUIRED -->
+
+<div id="required" class="page">
+
+<h2>Why This Product Is Required</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Public Hygiene Problem</h3>
+<p>
+Door handles are among the most frequently touched surfaces and major sources of contamination.
+</p>
+</div>
+
+<div class="card">
+<h3>People Forget Sanitizer</h3>
+<p>
+Manual sanitization systems are often ignored by users.
+</p>
+</div>
+
+<div class="card">
+<h3>Need For Automation</h3>
+<p>
+Hygiene systems should become automatic and integrated into everyday behavior.
+</p>
+</div>
+
+<div class="card">
+<h3>Public Safety</h3>
+<p>
+Hospitals, offices, schools, malls and stations require improved hygiene systems.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- HOW IT WORKS -->
+
+<div id="working" class="page">
+
+<h2>How The Product Works</h2>
+
+<div class="two-column">
+
+<div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Step 1</h3>
+<p>User grips the handle.</p>
+</div>
+
+<div class="card">
+<h3>Step 2</h3>
+<p>Internal linkage activates automatically.</p>
+</div>
+
+<div class="card">
+<h3>Step 3</h3>
+<p>Spring mechanism dispenses sanitizer.</p>
+</div>
+
+<div class="card">
+<h3>Step 4</h3>
+<p>User opens the door safely with sanitized hands.</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="image-box">
+<img src="imghow.png" alt="Working">
+</div>
+
+</div>
+
+</div>
+
+<!-- JOURNEY -->
+
+<div id="journey" class="page">
+
+<h2>Design Thinking Journey</h2>
+
+<div class="timeline">
+
+<div class="card">
+<h3>Observation</h3>
+<p>
+Observed hygiene issues in public spaces and contaminated door handles.
+</p>
+</div>
+
+<div class="card">
+<h3>User Research</h3>
+<p>
+Conducted surveys and studied public hygiene behavior.
+</p>
+</div>
+
+<div class="card">
+<h3>Ideation</h3>
+<p>
+Brainstormed multiple engineering concepts and selected the most practical solution.
+</p>
+</div>
+
+<div class="card">
+<h3>Prototype Development</h3>
+<p>
+Developed and tested the functional mechanical prototype.
+</p>
+</div>
+
+<div class="card">
+<h3>Refinement</h3>
+<p>
+Improved design using mentor feedback and engineering analysis.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- MATERIALS -->
+
+<div id="materials" class="page">
+
+<h2>Materials & Mechanism</h2>
+
+<div class="two-column">
+
+<div class="image-box">
+<img src="imgmat.png" alt="Materials">
+</div>
+
+<div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Stainless Steel</h3>
+<p>
+Corrosion resistant and durable for long-term public use.
+</p>
+</div>
+
+<div class="card">
+<h3>ABS Polymer</h3>
+<p>
+Strong lightweight structural component used in mechanism design.
+</p>
+</div>
+
+<div class="card">
+<h3>HDPE Reservoir</h3>
+<p>
+Leak-proof sanitizer storage with chemical resistance.
+</p>
+</div>
+
+<div class="card">
+<h3>Medical Grade Silicone</h3>
+<p>
+Ensures smooth sanitizer flow and prevents clogging.
+</p>
+</div>
+
+<div class="card">
+<h3>Spring Mechanism</h3>
+<p>
+Controls automatic sanitizer dispensing during handle operation.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FUTURE -->
+
+<div id="future" class="page">
+
+<h2>Future Improvements</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>AI Monitoring</h3>
+<p>
+AI-based hygiene monitoring systems.
+</p>
+</div>
+
+<div class="card">
+<h3>IoT Integration</h3>
+<p>
+Smart public infrastructure integration.
+</p>
+</div>
+
+<div class="card">
+<h3>Touchless Upgrade</h3>
+<p>
+Advanced sensor-based automation.
+</p>
+</div>
+
+<div class="card">
+<h3>Smart Analytics</h3>
+<p>
+Real-time hygiene tracking and maintenance alerts.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- TEAM -->
+
+<div id="team" class="page">
+
+<h2>Our Team</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UAEEE003</p>
+</div>
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UAEEE001</p>
+</div>
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UAEEE016</p>
+</div>
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UAEEE017</p>
+</div>
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UAEEE025</p>
+</div>
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UAEEE027</p>
+</div>
+
+<div class="card">
+<h3>Team Member</h3>
+<p>SE24UECM064</p>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+Self-Sanitizing Door Handle | Engineering Innovation Project
+</p>
+
+</footer>
+
+<script>
+
+function showPage(pageId){
+
+const pages=document.querySelectorAll('.page');
+
+pages.forEach(page=>{
+page.classList.remove('active');
+});
+
+document.getElementById(pageId).classList.add('active');
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+</script>
+
+</body>
+</html>
